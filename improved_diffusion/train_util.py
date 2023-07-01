@@ -1,7 +1,7 @@
 import copy
 import functools
 import os
-import wandb
+#import wandb
 
 import blobfile as bf
 import glob
@@ -446,8 +446,8 @@ class TrainLoop:
             samples = samples.cpu() * latent_mask + batch * obs_mask
             _mark_as_observed(samples[:, :n_obs])
             samples = ((samples + 1) * 127.5).clamp(0, 255).to(th.uint8).cpu().numpy()
-            for i, video in enumerate(samples):
-                logger.logkv(f'video-{i}', wandb.Video(video), distributed=False)
+            #for i, video in enumerate(samples):
+                #logger.logkv(f'video-{i}', wandb.Video(video), distributed=False)
             logger.logkv("timing/sampling_time", time() - sample_start, distributed=False)
 
             # restore model to original state
@@ -483,7 +483,7 @@ def parse_resume_step_from_filename(filename):
 def get_blob_logdir(args):
     root_dir = "checkpoints"
     assert os.path.exists(root_dir), "Must create directory 'checkpoints'"
-    wandb_id = args.resume_id if len(args.resume_id) > 0 else wandb.run.id
+    wandb_id =1# args.resume_id if len(args.resume_id) > 0 else wandb.run.id
     return os.path.join(root_dir, wandb_id)
 
 
