@@ -11,7 +11,7 @@ import tempfile
 import warnings
 from collections import defaultdict
 from contextlib import contextmanager
-import wandb
+# import wandb
 from mpi4py import MPI
 
 
@@ -47,8 +47,8 @@ class Logger(object):
             if self.comm.rank != 0:
                 d["dummy"] = 1  # so we don't get a warning about empty dict
         out = d.copy()  # Return the dict for unit testing purposes
-        if self.comm is None or self.comm.rank == 0:
-            wandb.log({**self.name2val, **self.nondistributed_name2val})
+        #if self.comm is None or self.comm.rank == 0:
+            #wandb.log({**self.name2val, **self.nondistributed_name2val})
         self.name2val.clear()
         self.name2cnt.clear()
         self.nondistributed_name2val.clear()
